@@ -3,7 +3,7 @@ import os
 import click
 import torch
 
-from lib_utils import get_class_index_hashmap, zip_annotation, unzip_task
+from lib_utils_yolo2cvat import get_class_index_hashmap, zip_annotation, unzip_task
 from predict_redactor import enrich_labels
 import shutil
 

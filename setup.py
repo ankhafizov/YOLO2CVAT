@@ -8,7 +8,7 @@ setup(
     long_description="Inference YOLOv5 model to CVAT YOLO1.1 data format",
     include_package_data=True,
     entry_points={
-        "console_scripts": ["yolo2cvat=main:main"],
+        "console_scripts": ["yolo2cvat=main_yolo2cvat:main"],
     },
     install_requires=[
         "PyYAML==6.0",
