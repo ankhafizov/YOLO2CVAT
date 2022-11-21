@@ -1,7 +1,7 @@
-*.txt
 *.png
 *.pt
 *.zip
 *.data
 *.names
 *.pyc
+*.egg-info

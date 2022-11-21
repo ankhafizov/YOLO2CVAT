@@ -3,6 +3,8 @@ Can infer YOLOv5 model to CVAT YOLO1.1 data format
 
 # Installation
 
+Install PyTorch manually. See: https://pytorch.org/get-started/locally/.
+
 `git clone https://github.com/ankhafizov/YOLO2CVAT.git`
 
 `cd YOLO2CVAT`
