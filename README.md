@@ -39,7 +39,9 @@ Then, YOLOv5 CNN will process all images in `task_name/obj_train_data` folder. I
 
 - --cvat_task - Path to the exported .zip task file
 - --weights - Path to the YOLOv5 weights
-- --classes - Optional (default - all). Classes which will be predicted by YOLO. So if in initially YOLO predicts 3 classes (e.g. [A, B, C]), and there is flag ```--classes "A|C"```, only labels with classes A and C will be kept in output YOLO1.1 dataset.
+- --classes - Optional (default - all). Classes which will be predicted by YOLO. So if in initially YOLO predicts 3 classes (e.g. [A, B, C]), and there is flag ```--classes "A|C"```, only labels with classes A and C will be kept in output YOLO1.1 dataset
+- --img_format - Optional (default - png). File format of images
+- --prob_thresh - Probability threshold for YOLOv5.
 
 help:
 
