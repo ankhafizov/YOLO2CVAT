@@ -1,7 +1,9 @@
 import os
 
 import click
-import torch
+
+from yolov5.models.common import DetectMultiBackend
+from yolov5.utils.torch_utils import select_device
 
 from lib_utils_yolo2cvat import get_class_index_hashmap, zip_annotation, unzip_task
 from predict_redactor import enrich_labels
@@ -22,6 +24,12 @@ import shutil
     type=str,
 )
 @click.option(
+    "--model_train_imgsz",
+    help="YOLOv5 imgsz parameter via training (640 is ok, if don't remember)",
+    required=True,
+    type=int,
+)
+@click.option(
     "--classes",
     help="Classes which will be predicted by YOLO",
     default="all",
@@ -30,7 +38,7 @@ import shutil
 )
 @click.option("--img_format", default="png", help="Format of images", type=str)
 @click.option(
-    "--prob_thresh", default=0.7, help="Probability threshold for YOLOv5", type=int
+    "--prob_thresh", default=0.5, help="Probability threshold for YOLOv5", type=float
 )
 def main(**kwargs):
 
@@ -40,21 +48,17 @@ def main(**kwargs):
     wanted_classes = kwargs["classes"]
     img_format = kwargs["img_format"]
     prob_thresh = kwargs["prob_thresh"]
+    model_train_imgsz = kwargs["model_train_imgsz"]
     lbl_extention = "txt"
 
     # --------------- Assertions --------------------
     assert os.path.exists(yolov5_weights_pth), f"{yolov5_weights_pth} does not exist"
     assert os.path.exists(cvat_task_pth), f"{cvat_task_pth} does not exist"
 
-    model = torch.hub.load(
-        "ultralytics/yolov5",
-        "custom",
-        path=yolov5_weights_pth,
-        force_reload=True,
-        _verbose=False,
-    )
+    model = DetectMultiBackend(yolov5_weights_pth, device=select_device())
 
     model_classes = list(model.names.values())
+    print("model_classes:", model_classes)
     if wanted_classes == "all":
         wanted_classes = model_classes
     else:
@@ -74,6 +78,7 @@ def main(**kwargs):
         model,
         prob_thresh,
         model_classes,
+        model_train_imgsz,
         lbl_extention=lbl_extention,
     )
 

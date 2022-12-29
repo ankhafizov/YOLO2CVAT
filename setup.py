@@ -17,5 +17,6 @@ setup(
         "opencv_python",
         "setuptools",
         "tqdm",
+        "yolov5",
     ],
 )
